@@ -19,29 +19,35 @@ vue3-demo 这个文件下主要是熟悉 vue3 的一些基础语法
 │  │      watch.vue         // 侦听函数
 │  │
 │  └─Day2
-│      ├─basic-project  // 基础案例：对一个表格数据进行展示、删除、修改操作
-│      │      edit.vue
-│      │      table.vue
-│      │
-│      ├─child-to-parent  // 子组件向父组件传值
-│      │      child-com.vue
-│      │      parent-com.vue
-│      │
-│      ├─grand-to-child  // 跨组件传值
-│      │      room-msg-comment.vue
-│      │      room-msg-item.vue
-│      │      room-page.vue
-│      │
-│      ├─parent-to-child  // 父组件向子组件传值
-│      │      child-com.vue
-│      │      parent-com.vue
-│      │
-│      └─template-reference  // 模板引用
-│              child-com.vue
-│              parent-com.vue
+│  |    ├─basic-project  // 基础案例：对一个表格数据进行展示、删除、修改操作
+│  |    │      edit.vue
+│  |    │      table.vue
+│  |    │
+│  |    ├─child-to-parent  // 子组件向父组件传值
+│  |    │      child-com.vue
+│  |    │      parent-com.vue
+│  |    │
+│  |    ├─grand-to-child  // 跨组件传值
+│  |    │      room-msg-comment.vue
+│  |    │      room-msg-item.vue
+│  |    │      room-page.vue
+│  |    │
+│  |    ├─parent-to-child  // 父组件向子组件传值
+│  |    │      child-com.vue
+│  |    │      parent-com.vue
+│  |    │
+│  |    └─template-reference  // 模板引用
+│  |           child-com.vue
+│  |            parent-com.vue
+│  │
+│  └─Day3 // pinia基础学习
+│          counter.vue
 │
-└─mock  // 模拟接口数据
-        index.js
+├─mock   // 模拟接口数据
+│      index.js
+│
+└─stores // 状态管理
+        counter.js
 ```
 
 ---
