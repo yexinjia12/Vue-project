@@ -10,12 +10,15 @@
 // import Day2 from './components/Day2/child-to-parent/parent-com.vue'
 // import Day2 from './components/Day2/template-reference/parent-com.vue'
 // import Day2 from './components/Day2/grand-to-child/room-page.vue'
-import Day2 from './components/Day2/basic-project/table.vue'
+// import Day2 from './components/Day2/basic-project/table.vue'
+// import Day2 from './components/Day2/basic-project/table.vue'
+
+import Day3 from './components/Day3/counter.vue'
 </script>
 
 <template>
   <div>
-    <Day2 />
+    <Day3 />
   </div>
 </template>
 
