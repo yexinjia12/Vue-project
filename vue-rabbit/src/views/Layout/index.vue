@@ -1,10 +1,12 @@
 <script setup>
-import { ref } from 'vue'
-const state = ref()
+import LayoutNav from './components/LayoutNav.vue'
+import LayoutHeader from './components/LayoutHeader.vue'
+import LayoutFooter from './components/LayoutFooter.vue'
 </script>
+
 <template>
-  我是首页
-  <!-- 设置二级路由出口 -->
+  <LayoutNav />
+  <LayoutHeader />
   <RouterView />
+  <LayoutFooter />
 </template>
-<style lang='less'></style>
