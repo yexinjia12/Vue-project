@@ -1,0 +1,14 @@
+// 只是做联想提示，实际的路径转化需要在vite @alias中配置
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@utils/*": ["src/utils/*"],
+      "@views/*": ["src/views/*"]
+    },
+    "allowJs": true
+  },
+  "exclude": ["node_modules", "dist"]
+}
