@@ -13,3 +13,10 @@ export const getNewAPI = () => {
     url: '/home/new'
   })
 }
+
+// 获取人气推荐接口
+export const getHotAPI = () => {
+  return httpIntance({
+    url: 'home/hot'
+  })
+}
