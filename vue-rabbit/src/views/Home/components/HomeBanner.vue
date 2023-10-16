@@ -1,10 +1,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { getBannerApI } from '@/apis/banner'
+import { getBannerAPI } from '@/apis/home'
 
 const bannerList = ref([])
 const getBanner = async () => {
-  const res = await getBannerApI()
+  const res = await getBannerAPI()
   bannerList.value = res.result
 }
 
@@ -40,4 +40,4 @@ onMounted(() => getBanner())
     height: 500px;
   }
 }
-</style>
+</style>@/apis/home
