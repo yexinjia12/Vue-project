@@ -14,22 +14,25 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: Layout,
-      children: [{
-        path: '', // 默认渲染home页面，如果不想使用redirect，可以path配置为空
-        name: 'home',
-        component: Home
-      }, {
-        path: '/category',
-        name: 'category',
-        component: Category
-      }]
+      children: [
+        {
+          path: '', // 默认渲染home页面，如果不想使用redirect，可以path配置为空
+          name: 'home',
+          component: Home,
+        },
+        {
+          path: '/category/:id',
+          name: 'category',
+          component: Category,
+        },
+      ],
     },
     {
       path: '/login',
       name: 'login',
-      component: Login
-    }
-  ]
+      component: Login,
+    },
+  ],
 })
 
 export default router
