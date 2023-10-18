@@ -1,9 +1,18 @@
 import httpIntance from '@/utils/http'
 
-// 获取轮播图数据接口
-export const getBannerAPI = () => {
+//
+/**
+ * 获取轮播图数据接口
+ * @param {Object} params 广告区域展示位置（1为首页，2为分类商品），默认为1
+ * @returns
+ */
+export const getBannerAPI = (params = {}) => {
+  const { distributionSite = '1' } = params
   return httpIntance({
     url: 'home/banner',
+    params: {
+      distributionSite,
+    },
   })
 }
 
