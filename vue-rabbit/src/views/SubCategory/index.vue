@@ -15,17 +15,23 @@ onMounted(() => getSubCategoryList())
 
 // 商品列表
 const goodsList = ref([])
-const reqDate = ref({
+const reqData = ref({
   categoryId: route.params.id,
   page: 1,
   pageSize: 20,
   sortField: 'publishTime' // 'publishTime' | 'orderNum' | 'evaluateNum'
 })
 const getGoodsList = async () => {
-  const res = await getSubCategoryAPI(reqDate)
+  const res = await getSubCategoryAPI(reqData.value)
   goodsList.value = res.result.items
 }
 onMounted(() => getGoodsList())
+
+// 切换tab
+const tabChange = () => {
+  reqData.value.page = 1
+  getGoodsList()
+}
 
 </script>
 
@@ -41,7 +47,7 @@ onMounted(() => getGoodsList())
       </el-breadcrumb>
     </div>
     <div class="sub-container">
-      <el-tabs>
+      <el-tabs v-model="reqData.sortField" @tab-change="tabChange">
         <el-tab-pane label="最新商品" name="publishTime"></el-tab-pane>
         <el-tab-pane label="最高人气" name="orderNum"></el-tab-pane>
         <el-tab-pane label="评论最多" name="evaluateNum"></el-tab-pane>
