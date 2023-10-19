@@ -13,3 +13,17 @@ export const getTopCategoryAPI = (id) => {
     },
   })
 }
+
+/**
+ * 获取二级分类列表数据
+ * @param {string} id 二级分类id
+ * @returns
+ */
+export const getCategoryFilterAPI = (id) => {
+  return httpIntance({
+    url: '/category/sub/filter',
+    params: {
+      id,
+    },
+  })
+}
