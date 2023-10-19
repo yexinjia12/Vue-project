@@ -4,9 +4,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import Layout from '@/views/Layout/index.vue'
 import Login from '@/views/Login/index.vue'
-import Home from '@/views/Home/index.vue'
-import Category from '@/views/Category/index.vue'
-import subCategory from '@/views/SubCategory/index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,17 +16,22 @@ const router = createRouter({
         {
           path: '', // 默认渲染home页面，如果不想使用redirect，可以path配置为空
           name: 'home',
-          component: Home,
+          component: () => import('@/views/Home/index.vue'),
         },
         {
           path: '/category/:id',
           name: 'category',
-          component: Category,
+          component: () => import('@/views/Category/index.vue'),
         },
         {
           path: 'category/sub/:id',
           name: 'subCategory',
-          component: subCategory,
+          component: () => import('@/views/SubCategory/index.vue'),
+        },
+        {
+          path: 'detail/:id',
+          name: 'detail',
+          component: () => import('@/views/Detail/index.vue'),
         },
       ],
     },
