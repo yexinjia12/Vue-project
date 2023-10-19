@@ -3,6 +3,7 @@ import { getCategoryFilterAPI, getSubCategoryAPI } from '@/apis/category'
 import { useRoute } from 'vue-router'
 import { onMounted, ref } from 'vue'
 import GoodsItem from '@/views/Home/components/HomeGoodsItem.vue'
+// TODO：提取逻辑函数
 
 // 面包屑导航
 const subCategoryList = ref({})
