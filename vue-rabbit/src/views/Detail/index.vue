@@ -3,12 +3,14 @@ import { getDetailAPI } from '@/apis/detail.js'
 import { useRoute } from 'vue-router'
 import { onMounted, ref } from 'vue'
 import DetailHot from './components/DetailHot.vue'
+import ImageView from '@/components/ImageView/index.vue'
 
 // 获取商品详情
 const goods = ref({})
 const route = useRoute()
 // const subCategories = ref({})
 // const threeCategories = ref({})
+
 const getGoods = async () => {
   const res = await getDetailAPI(route.params.id)
   goods.value = res.result
@@ -17,7 +19,6 @@ const getGoods = async () => {
   // subCategories.value = goods.value.categories[1] 
   // threeCategories.value = goods.value.categories[0]
 }
-
 onMounted(() => getGoods())
 
 
@@ -57,7 +58,7 @@ onMounted(() => getGoods())
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-
+              <ImageView />
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
