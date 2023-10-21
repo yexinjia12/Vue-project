@@ -11,9 +11,14 @@ export const useUserStore = defineStore(
       const res = await loginAPI({ account, password })
       userInfo.value = res.result
     }
+    // 退出登录时，清空用户数据
+    const clearUserInfo = () => {
+      userInfo.value = {}
+    }
     return {
       userInfo,
       getUserInfo,
+      clearUserInfo,
     }
   },
   // 持久化配置
