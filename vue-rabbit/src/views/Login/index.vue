@@ -1,9 +1,9 @@
 <script setup>
 import { ref } from 'vue'
-import { loginAPI } from '@/apis/user'
 import { ElMessage } from 'element-plus'
 import 'element-plus/theme-chalk/el-message.css'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user'
 // 表单对象
 const form = ref({
   account: '',
@@ -37,13 +37,13 @@ const rules = {
 // 表单统一校验
 const formRef = ref(null)
 const router = useRouter()
+const { getUserInfo } = useUserStore()
 const submitFormBtn = () => {
   formRef.value.validate(async (valid) => {
     const { account, password } = form.value
     // 校验通过，调用登录接口
     if (valid) {
-      const res = await loginAPI({ account, password })
-      console.log(res);
+      await getUserInfo({ account, password })
       // 提示用户
       ElMessage({ type: 'success', message: '登录成功' })
       // 跳转首页
