@@ -1,4 +1,6 @@
 <script setup>
+import { useUserStore } from '@/stores/user'
+const userStore = useUserStore()
 
 </script>
 
@@ -7,10 +9,11 @@
     <div class="container">
       <ul>
         <!-- 登录状态导航 -->
-        <template v-if="false">
+        <!-- 通过token判断是否登录状态 -->
+        <template v-if="userStore.userInfo.token">
           <li>
             <a href='javascript:;'>
-              <i class=" iconfont icon-user"></i>周杰伦
+              <i class=" iconfont icon-user"></i>{{ userStore.userInfo.account }}
             </a>
           </li>
           <li>
