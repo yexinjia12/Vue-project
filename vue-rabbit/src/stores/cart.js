@@ -40,12 +40,19 @@ export const useCartStore = defineStore(
         return pre + cur.count * cur.price
       }, 0)
     })
+
+    // 商品结算是否勾选状态切换
+    const singleCheck = (skuId, selected) => {
+      const goodsItem = cartList.value.find((item) => item.skuId === skuId)
+      goodsItem.selected = selected
+    }
     return {
       cartList,
       allCount,
       allPrice,
       addCart,
       delCart,
+      singleCheck,
     }
   },
   {

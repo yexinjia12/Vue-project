@@ -1,6 +1,11 @@
 <script setup>
 import { useCartStore } from '@/stores/cart';
 const cartStore = useCartStore()
+
+// 切换勾选状态
+const singleCheck = (i, selected) => {
+  cartStore.singleCheck(i.skuId, selected)
+}
 </script>
 
 <template>
@@ -24,7 +29,8 @@ const cartStore = useCartStore()
           <tbody>
             <tr v-for="i in cartStore.cartList" :key="i.id">
               <td>
-                <el-checkbox />
+                <!-- @change="(selected) => singleCheck(i, selected)" @change后面跟一个回调函数使singleCheck除默认参数外，增加自定义参数 -->
+                <el-checkbox :model-value="i.selected" @change="(selected) => singleCheck(i, selected)" />
               </td>
               <td>
                 <div class="goods">
