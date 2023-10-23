@@ -2,9 +2,14 @@
 import { useCartStore } from '@/stores/cart';
 const cartStore = useCartStore()
 
-// 切换勾选状态
+// 列表项单选功能
 const singleCheck = (i, selected) => {
   cartStore.singleCheck(i.skuId, selected)
+}
+
+// 全选项功能
+const allCheck = (selected) => {
+  cartStore.allCheck(selected)
 }
 </script>
 
@@ -16,7 +21,7 @@ const singleCheck = (i, selected) => {
           <thead>
             <tr>
               <th width="120">
-                <el-checkbox />
+                <el-checkbox :model-value="cartStore.isAll" @change="allCheck" />
               </th>
               <th width="400">商品信息</th>
               <th width="220">单价</th>
