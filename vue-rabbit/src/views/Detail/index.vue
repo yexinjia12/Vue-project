@@ -3,6 +3,7 @@ import { getDetailAPI } from '@/apis/detail.js'
 import { useRoute } from 'vue-router'
 import { onMounted, ref } from 'vue'
 import DetailHot from './components/DetailHot.vue'
+import { useCartStore } from '@/stores/cart'
 
 // 获取商品详情
 const goods = ref({})
@@ -19,11 +20,40 @@ const getGoods = async () => {
   // subCategories.value = goods.value.categories[1] 
   // threeCategories.value = goods.value.categories[0]
 }
-onMounted(() => getGoods())
+// onMounted(() => getGoods())
+getGoods()
 
+const skuObj = ref({})
 // sku规格被操作时
 const skuChange = (sku) => {
-  console.log(sku);
+  skuObj.value = sku
+}
+
+// 商品选择数量
+const goodsCount = ref(1)
+const countChange = (count) => {
+  console.log('countChange', count);
+}
+
+const cartStore = useCartStore()
+// 添加购物车
+const addCartBtn = () => {
+  // 如果选择了规格，调用action添加
+  if (skuObj.value.skuId) {
+    cartStore.addCart({
+      id: goods.value.id,  // 商品id
+      name: goods.value.name,   // 商品名称
+      picture: goods.value.mainPictures[0],   // 图片
+      price: goods.value.price,  // 最新价格
+      count: goodsCount.value,  // 商品数量
+      skuId: skuObj.skuId,  // skuId
+      attrsText: skuObj.specsText,  // 商品规格文本
+      selected: true // 商品是否选中
+    })
+  } else {
+    // 没有选择规格，提示用户选择规格
+    ElMessage.warning('请选择规格')
+  }
 }
 
 
@@ -115,10 +145,11 @@ const skuChange = (sku) => {
               <Sku :goods="goods" @change="skuChange" />
 
               <!-- 数据组件 -->
+              <el-input-number v-model="goodsCount" @change="countChange" />
 
               <!-- 按钮组件 -->
               <div>
-                <el-button size="large" class="btn">
+                <el-button size="large" class="btn" @click="addCartBtn">
                   加入购物车
                 </el-button>
               </div>
