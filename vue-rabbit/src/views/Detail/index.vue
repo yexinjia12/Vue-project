@@ -46,8 +46,8 @@ const addCartBtn = () => {
       picture: goods.value.mainPictures[0],   // 图片
       price: goods.value.price,  // 最新价格
       count: goodsCount.value,  // 商品数量
-      skuId: skuObj.skuId,  // skuId
-      attrsText: skuObj.specsText,  // 商品规格文本
+      skuId: skuObj.value.skuId,  // skuId
+      attrsText: skuObj.value.specsText,  // 商品规格文本
       selected: true // 商品是否选中
     })
   } else {
@@ -113,7 +113,7 @@ const addCartBtn = () => {
                 </li>
                 <li>
                   <p>品牌信息</p>
-                  <p>{{ goods.brand.name }}+</p>
+                  <p>{{ goods.brand?.name }}+</p>
                   <p><i class="iconfont icon-dynamic-filling"></i>品牌主页</p>
                 </li>
               </ul>
@@ -166,13 +166,13 @@ const addCartBtn = () => {
                 <div class="goods-detail">
                   <!-- 属性 -->
                   <ul class="attrs">
-                    <li v-for="item in goods.details.properties" :key="item.value">
+                    <li v-for="item in goods.details?.properties" :key="item.value">
                       <span class="dt">{{ item.name }}</span>
                       <span class="dd">{{ item.value }}</span>
                     </li>
                   </ul>
                   <!-- 图片 -->
-                  <img v-for="img in goods.details.pictures" :key="img" v-img-lazy="img" />
+                  <img v-for="img in goods.details?.pictures" :key="img" v-img-lazy="img" />
                 </div>
               </div>
             </div>

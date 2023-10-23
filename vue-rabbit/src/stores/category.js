@@ -1,6 +1,6 @@
-import { defineStore } from "pinia"
+import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { getCategoryAPI } from "@/apis/layout.js";
+import { getCategoryAPI } from '@/apis/layout.js'
 
 export const useCategoryStore = defineStore('category', () => {
   // 获取一级导航菜单数据
@@ -10,11 +10,11 @@ export const useCategoryStore = defineStore('category', () => {
   // actions 获取导航数据的方法
   const getCategory = async () => {
     const res = await getCategoryAPI()
-    categoryList.value = res.result;
+    categoryList.value = res.result
   }
 
   return {
     categoryList,
-    getCategory
+    getCategory,
   }
 })
