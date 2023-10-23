@@ -145,7 +145,7 @@ const addCartBtn = () => {
               <Sku :goods="goods" @change="skuChange" />
 
               <!-- 数据组件 -->
-              <el-input-number v-model="goodsCount" @change="countChange" />
+              <el-input-number :min="1" v-model="goodsCount" @change="countChange" />
 
               <!-- 按钮组件 -->
               <div>
