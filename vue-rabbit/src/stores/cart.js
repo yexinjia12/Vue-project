@@ -2,11 +2,12 @@
 // 采用pinia管理购物车列表数据并添加持久化缓存
 
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 export const useCartStore = defineStore(
   'cart',
   () => {
     const cartList = ref([])
+
     // 添加购物车
     const addCart = (goods) => {
       const goodsItem = cartList.value.find(
@@ -19,13 +20,30 @@ export const useCartStore = defineStore(
         cartList.value.push(goods) // 没添加过，直接push
       }
     }
+
     // 删除购物车
     const delCart = (skuId) => {
       const delIndex = cartList.value.findIndex((item) => item.skuId === skuId)
       cartList.value.splice(delIndex, 1)
     }
+
+    // 商品总数
+    const allCount = computed(() => {
+      return cartList.value.reduce((pre, cur) => {
+        return pre + cur.count
+      }, 0)
+    })
+
+    // 商品总价格
+    const allPrice = computed(() => {
+      return cartList.value.reduce((pre, cur) => {
+        return pre + cur.count * cur.price
+      }, 0)
+    })
     return {
       cartList,
+      allCount,
+      allPrice,
       addCart,
       delCart,
     }
