@@ -19,3 +19,14 @@ export const getNewCartListAPI = () => {
     url: 'member/cart',
   })
 }
+
+// 删除购物车
+export const delCartAPI = (ids) => {
+  return httpIntance({
+    url: '/member/cart',
+    method: 'DELETE',
+    data: {
+      ids,
+    },
+  })
+}
