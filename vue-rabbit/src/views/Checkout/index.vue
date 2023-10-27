@@ -12,11 +12,21 @@ const getCheckoutInfo = async () => {
     return item.isDefault === 0
   }) || checkInfo.value.userAddresses[0]
 }
+onMounted(() => getCheckoutInfo())
 
 // 切换地址弹窗显示
-const changeAddressDialog = ref(false)
+const showAddressDialog = ref(false)
 
-onMounted(() => getCheckoutInfo())
+const activeAddress = ref({})
+// 激活地址交互
+const switchAddress = (item) => {
+  activeAddress.value = item
+}
+const comfirmAddress = () => {
+  curAddress.value = activeAddress.value
+  showAddressDialog.value = false
+  activeAddress.value = {}
+}
 
 
 </script>
@@ -38,7 +48,7 @@ onMounted(() => getCheckoutInfo())
               </ul>
             </div>
             <div class="action">
-              <el-button size="large" @click="changeAddressDialog = true">切换地址</el-button>
+              <el-button size="large" @click="showAddressDialog = true">切换地址</el-button>
               <el-button size="large" @click="addFlag = true">添加地址</el-button>
             </div>
           </div>
@@ -121,7 +131,8 @@ onMounted(() => getCheckoutInfo())
   <!-- 切换地址 -->
   <el-dialog title="切换收货地址" width="30%" center>
     <div class="addressWrapper">
-      <div class="text item" v-for="item in checkInfo.userAddresses" :key="item.id">
+      <div class="text item" :class="{ 'active': activeAddress.id === item.id }" @click="switchAddress(item)"
+        v-for="item in checkInfo.userAddresses" :key="item.id">
         <ul>
           <li><span>收<i />货<i />人：</span>{{ item.receiver }} </li>
           <li><span>联系方式：</span>{{ item.contact }}</li>
@@ -131,8 +142,8 @@ onMounted(() => getCheckoutInfo())
     </div>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="changeAddressDialog = false">取消</el-button>
-        <el-button type="primary">确定</el-button>
+        <el-button @click="showAddressDialog = false">取消</el-button>
+        <el-button type="primary" @click="comfirmAddress">确定</el-button>
       </span>
     </template>
   </el-dialog>
