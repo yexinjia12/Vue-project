@@ -1,6 +1,8 @@
 <script setup>
-import { getCheckoutInfoAPI } from '@/apis/checkout'
+import { useRouter } from 'vue-router';
+import { getCheckoutInfoAPI, createOrderAPI } from '@/apis/checkout'
 import { ref, onMounted } from 'vue'
+import { useCartStore } from '@/stores/cart'
 
 const checkInfo = ref({})  // 订单对象
 const curAddress = ref({})  // 地址对象
@@ -8,9 +10,10 @@ const getCheckoutInfo = async () => {
   const res = await getCheckoutInfoAPI()
   checkInfo.value = res.result
   // 获取默认地址
-  curAddress.value = checkInfo.value.userAddresses.filter(item => {
+  const AddressesList = checkInfo.value.userAddresses.filter(item => {
     return item.isDefault === 0
-  }) || checkInfo.value.userAddresses[0]
+  })
+  curAddress.value = AddressesList.length <= 0 ? checkInfo.value.userAddresses[0] : AddressesList
 }
 onMounted(() => getCheckoutInfo())
 
@@ -26,6 +29,35 @@ const comfirmAddress = () => {
   curAddress.value = activeAddress.value
   showAddressDialog.value = false
   activeAddress.value = {}
+}
+
+// 提交订单
+const router = useRouter()
+const cartStore = useCartStore()
+const createOrder = async () => {
+  // 调用接口生成订单id，并且携带id跳转到支付页面
+  const res = await createOrderAPI({
+    deliveryTimeType: 1,
+    payType: 1,
+    payChannel: 1,
+    buyerMessage: '',
+    goods: checkInfo.value.goods.map(item => {
+      return {
+        skuId: item.skuId,
+        count: item.count
+      }
+    }),
+    addressId: curAddress.value.id
+  })
+  const orderId = res.result.id
+  router.push({
+    path: '/pay',
+    query: {
+      id: orderId
+    }
+  })
+  // 调用更新购物车列表接口，更新购物车状态
+  cartStore.updateCart()
 }
 
 
@@ -123,7 +155,7 @@ const comfirmAddress = () => {
         </div>
         <!-- 提交订单 -->
         <div class="submit">
-          <el-button type="primary" size="large">提交订单</el-button>
+          <el-button type="primary" size="large" @click="createOrder">提交订单</el-button>
         </div>
       </div>
     </div>
