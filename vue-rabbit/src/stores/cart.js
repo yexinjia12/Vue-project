@@ -3,21 +3,38 @@
 
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
+import { useUserStore } from './user'
+import { insertCartAPI, getNewCartListAPI } from '@/apis/cart'
+
 export const useCartStore = defineStore(
   'cart',
   () => {
     const cartList = ref([])
 
+    const userStore = useUserStore()
+    const isLogin = computed(() => userStore.userInfo.token)
     // 添加购物车
-    const addCart = (goods) => {
-      const goodsItem = cartList.value.find(
-        (item) => item.skuId === goods.skuId
-      )
-      if (goodsItem) {
-        // 添加过，数量增加
-        goodsItem.count += goods.count
+    const addCart = async (goods) => {
+      // 接口购物车（所有操作走接口，操作完毕获取购物车列表更新本地购物车列表）
+      if (isLogin.value) {
+        await insertCartAPI({
+          skuId: goods.skuId,
+          count: goods.count,
+        })
+        const res = await getNewCartListAPI()
+        // 用接口购物车覆盖本地购物车
+        cartList.value = res.result
       } else {
-        cartList.value.push(goods) // 没添加过，直接push
+        // 本地购物车(所有操作不走接口，直接操作pinia的本地购物车列表)
+        const goodsItem = cartList.value.find(
+          (item) => item.skuId === goods.skuId
+        )
+        if (goodsItem) {
+          // 添加过，数量增加
+          goodsItem.count += goods.count
+        } else {
+          cartList.value.push(goods) // 没添加过，直接push
+        }
       }
     }
 
