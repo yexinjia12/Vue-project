@@ -2,11 +2,13 @@
 import { defineStore } from 'pinia'
 import { loginAPI } from '@/apis/user'
 import { ref } from 'vue'
+import { useCartStore } from './cart'
 
 export const useUserStore = defineStore(
   'user',
   () => {
     const userInfo = ref({})
+    const cartStore = useCartStore()
     const getUserInfo = async ({ account, password }) => {
       const res = await loginAPI({ account, password })
       userInfo.value = res.result
@@ -14,6 +16,8 @@ export const useUserStore = defineStore(
     // 退出登录时，清空用户数据
     const clearUserInfo = () => {
       userInfo.value = {}
+      // 清除本地购物车缓存数据
+      cartStore.clearCart()
     }
     return {
       userInfo,
