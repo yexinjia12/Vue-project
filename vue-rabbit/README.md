@@ -10,10 +10,14 @@
 │  main.js
 │
 ├─apis   	// API接口
+│      cart.js      // 购物车
 │      category.js  // 分类
+│      checkout.js  // 下单结算
 │      detail.js    // 商品详情
-│      home.js		// 主页
-│      layout.js	// 布局
+│      home.js		  // 主页
+│      layout.js	  // 布局
+│      order.js     // 个人订单
+│      pay.js       // 支付
 │      user.js		// 用户信息
 │
 ├─assets	// 静态资源
@@ -69,6 +73,8 @@
     │  └─composables
     │          useBanner.js
     │          useCategory.js
+    ├─Checkout  // 下单结算
+    │      index.vue
     │
     ├─Detail	// 商品详情
     │  │  index.vue
@@ -100,11 +106,32 @@
     │
     ├─Login		// 登录页
     │      index.vue
+    ├─Member  // 会员中心
+    │  │  index.vue
+    │  │
+    │  └─components
+    │          UserInfo.vue
+    │          UserOrder.vue
+    │
+    ├─Pay     // 支付结算
+    │      index.vue
+    │      PayCallback.vue
     │
     └─SubCategory	// 二级分类
             index.vue
 
 ```
+
+## 项目展示
+
+![首页](image.png)
+![登录](image-6.png)
+![商品详情页](image-2.png)
+![下单结算页](image-4.png)
+![支付页面](image-5.png)
+![会员中心](image-3.png)
+
+---
 
 ## Project Setup
 
