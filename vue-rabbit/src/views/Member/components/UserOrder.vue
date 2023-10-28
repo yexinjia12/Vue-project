@@ -11,7 +11,7 @@ const tabTypes = [
   { name: "complete", label: "已完成" },
   { name: "cancel", label: "已取消" }
 ]
-// 订单列表
+// 获取订单列表
 const orderList = ref([])
 const params = ref({
   orderState: 0,
@@ -24,12 +24,16 @@ const getUserOrder = async () => {
 }
 onMounted(() => getUserOrder())
 
-
+// tab切换
+const tabChange = (tab) => {
+  params.value.orderState = tab
+  getUserOrder()
+}
 </script>
 
 <template>
   <div class="order-container">
-    <el-tabs>
+    <el-tabs @tab-change="tabChange">
       <!-- tab切换 -->
       <el-tab-pane v-for="item in tabTypes" :key="item.name" :label="item.label" />
 
